@@ -14,6 +14,7 @@ class TODO_App extends StatefulWidget {
 }
 
 class _TODO_AppState extends State<TODO_App> {
+  late Database database;
   int currentIndex = 0;
   List<Widget> screens = [
     const NewTasksScreen(),
@@ -33,6 +34,13 @@ class _TODO_AppState extends State<TODO_App> {
           backgroundColor: Colors.grey[900],
           centerTitle: true,
           title: Text(titles[currentIndex]),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            insertToDataBase();
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.grey[900],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
@@ -63,7 +71,7 @@ class _TODO_AppState extends State<TODO_App> {
   }
 
   void createDataBase() async {
-    var database = await openDatabase(
+    database = await openDatabase(
       'todo.db',
       version: 1,
       onCreate: (database, version) async {
@@ -82,5 +90,19 @@ class _TODO_AppState extends State<TODO_App> {
     );
   }
 
-  void insertToDataBase() {}
+  void insertToDataBase() {
+    database.transaction((txn) {
+      txn
+          .rawInsert(
+              'INSERT INTO tasks(title, date, time, status) VALUES("my first taks","feb","noon","new")')
+          .then(
+        (value) {
+          print("$value inserted successfully");
+        },
+      ).catchError((error) {
+        print("Error when inserting New Record: $error");
+      });
+      return Future.value();
+    });
+  }
 }
