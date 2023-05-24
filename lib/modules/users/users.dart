@@ -4,7 +4,7 @@ import '../../models/user/user_model.dart';
 
 // ignore: empty_constructor_bodies
 
-
+//ignore: must_be_immutable
 class Usersdata extends StatelessWidget {
   List<UserModel> users = [
     UserModel(
