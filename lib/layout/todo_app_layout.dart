@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:c4a/modules/todo_app/archived_screen/archived_screen.dart';
 import 'package:c4a/modules/todo_app/done_tasks_screen/donr_tasks.dart';
 import 'package:c4a/modules/todo_app/new_tasks_screen/new_tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TODO_App extends StatefulWidget {
   const TODO_App({super.key});
@@ -52,4 +55,32 @@ class _TODO_AppState extends State<TODO_App> {
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    createDataBase();
+  }
+
+  void createDataBase() async {
+    var database = await openDatabase(
+      'todo.db',
+      version: 1,
+      onCreate: (database, version) async {
+        print('database created ');
+        await database.execute(
+            'CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)');
+        try {
+          print('table created');
+        } catch (error) {
+          print("error when creating table: $error");
+        }
+      },
+      onOpen: (database) {
+        print('data base opened');
+      },
+    );
+  }
+
+  void insertToDataBase() {}
 }
