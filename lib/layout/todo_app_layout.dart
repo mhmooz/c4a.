@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:c4a/modules/todo_app/archived_screen/archived_screen.dart';
 import 'package:c4a/modules/todo_app/done_tasks_screen/donr_tasks.dart';
 import 'package:c4a/modules/todo_app/new_tasks_screen/new_tasks.dart';
+import 'package:c4a/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,6 +16,11 @@ class TODO_App extends StatefulWidget {
 
 class _TODO_AppState extends State<TODO_App> {
   late Database database;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isBottomSheetShown = false;
+  final title_controller = TextEditingController();
+  final time_controller = TextEditingController();
+  final date_controller = TextEditingController();
   int currentIndex = 0;
   List<Widget> screens = [
     const NewTasksScreen(),
@@ -30,6 +36,7 @@ class _TODO_AppState extends State<TODO_App> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
           centerTitle: true,
@@ -37,7 +44,28 @@ class _TODO_AppState extends State<TODO_App> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            insertToDataBase();
+            if (isBottomSheetShown) {
+              Navigator.pop(context);
+              isBottomSheetShown = false;
+            } else {
+              scaffoldKey.currentState!.showBottomSheet((context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      defaultFormField(
+                        controller: title_controller,
+                        hintText: 'Task Title',
+                        keyboardType: TextInputType.text,
+                        prefix: Icon(Icons.title),
+                        validat: (value) {
+                          if (value!.isEmpty) {
+                            return "Title Must Not Be Empty";
+                          }
+                        },
+                      ),
+                    ],
+                  ));
+              isBottomSheetShown = true;
+            }
           },
           child: Icon(Icons.add),
           backgroundColor: Colors.grey[900],

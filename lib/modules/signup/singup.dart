@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                 hintText: 'Email',
                 keyboardType: TextInputType.emailAddress,
                 validat: (value) {
-                  if (value?.isEmpty ?? true) {
+                  if (value!.isEmpty) {
                     return 'Email Must Not Be Empty';
                   }
                   return null;
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                 hintText: 'Password',
                 keyboardType: TextInputType.visiblePassword,
                 validat: (value) {
-                  if (value?.isEmpty ?? true) {
+                  if (value!.isEmpty) {
                     return 'Password is too short';
                   }
                   return null;
