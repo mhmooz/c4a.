@@ -6,7 +6,7 @@ Widget defaultButton({
   bool isUpperCase = true,
   double fontsize = 30,
   Color fontColor = Colors.white,
-  Color backgroundColor = Colors.purple,
+  Color backgroundColor = Colors.black,
   double radius = 25,
   required Function() function,
   required String text,
@@ -24,7 +24,7 @@ Widget defaultButton({
     );
 
 Widget defaultFormField({
-  required TextEditingController controller,
+  required TextEditingController? controller,
   required String hintText,
   required TextInputType keyboardType,
   required Icon prefix,
@@ -33,9 +33,10 @@ Widget defaultFormField({
   bool enable_Suggestion = false,
   bool auto_correct = false,
   Color hint_color = Colors.black,
-  Color fillColor = const Color.fromARGB(255, 187, 162, 230),
+  Color fillColor = Colors.white,
   double radius = 25,
   bool filled = true,
+  Function()? onTap,
   Function()? show_password,
   Icon? suffix,
   Function()? suffixPressed,
@@ -58,4 +59,5 @@ Widget defaultFormField({
       autocorrect: auto_correct,
       keyboardType: keyboardType,
       obscureText: isPassword ? true : false,
+      onTap: onTap,
     );

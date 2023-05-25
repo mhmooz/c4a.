@@ -5,6 +5,7 @@ import 'package:c4a/modules/todo_app/done_tasks_screen/donr_tasks.dart';
 import 'package:c4a/modules/todo_app/new_tasks_screen/new_tasks.dart';
 import 'package:c4a/shared/components/components.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TODO_App extends StatefulWidget {
@@ -17,6 +18,8 @@ class TODO_App extends StatefulWidget {
 class _TODO_AppState extends State<TODO_App> {
   late Database database;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+  IconData fabIcon = Icons.edit;
   bool isBottomSheetShown = false;
   final title_controller = TextEditingController();
   final time_controller = TextEditingController();
@@ -45,29 +48,91 @@ class _TODO_AppState extends State<TODO_App> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (isBottomSheetShown) {
-              Navigator.pop(context);
-              isBottomSheetShown = false;
+              if (formKey.currentState!.validate()) {
+                insertToDataBase(
+                        title: title_controller.text,
+                        time: time_controller.text,
+                        date: date_controller.text)
+                    .then((value) {
+                  Navigator.pop(context);
+                  isBottomSheetShown = false;
+                  setState(() {
+                    fabIcon = Icons.edit;
+                  });
+                });
+              }
             } else {
-              scaffoldKey.currentState!.showBottomSheet((context) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      defaultFormField(
-                        controller: title_controller,
-                        hintText: 'Task Title',
-                        keyboardType: TextInputType.text,
-                        prefix: Icon(Icons.title),
-                        validat: (value) {
-                          if (value!.isEmpty) {
-                            return "Title Must Not Be Empty";
-                          }
-                        },
-                      ),
-                    ],
+              scaffoldKey.currentState!.showBottomSheet((context) => Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        defaultFormField(
+                          controller: title_controller,
+                          hintText: 'Task Title',
+                          keyboardType: TextInputType.text,
+                          prefix: Icon(Icons.title),
+                          validat: (value) {
+                            if (value!.isEmpty) {
+                              return "Title Must Not Be Empty";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        defaultFormField(
+                            controller: time_controller,
+                            hintText: 'Task Time',
+                            keyboardType: TextInputType.datetime,
+                            prefix: Icon(Icons.watch_later),
+                            validat: (value) {
+                              if (value!.isEmpty) {
+                                return 'Time Must Not Be Empty';
+                              }
+                              return null;
+                            },
+                            onTap: () {
+                              showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now())
+                                  .then((value) => time_controller.text =
+                                      value!.format(context).toString());
+                            }),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        defaultFormField(
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.parse("2023-06-25"))
+                                  .then((value) => date_controller.text =
+                                      DateFormat.yMMMd().format(value!));
+                            },
+                            controller: date_controller,
+                            hintText: 'Task Date',
+                            keyboardType: TextInputType.datetime,
+                            prefix: Icon(Icons.calendar_month_outlined),
+                            validat: (value) {
+                              if (value!.isEmpty) {
+                                return 'Date Must Not Be Empty';
+                              }
+                              return null;
+                            })
+                      ],
+                    ),
                   ));
               isBottomSheetShown = true;
+              setState(() {
+                fabIcon = Icons.add;
+              });
             }
           },
-          child: Icon(Icons.add),
+          child: Icon(fabIcon),
           backgroundColor: Colors.grey[900],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -118,11 +183,14 @@ class _TODO_AppState extends State<TODO_App> {
     );
   }
 
-  void insertToDataBase() {
-    database.transaction((txn) {
+  Future insertToDataBase(
+      {required String title,
+      required String time,
+      required String date}) async {
+    return database.transaction((txn) {
       txn
           .rawInsert(
-              'INSERT INTO tasks(title, date, time, status) VALUES("my first taks","feb","noon","new")')
+              'INSERT INTO tasks(title, time, date, status) VALUES("$title","$time","$date","new")')
           .then(
         (value) {
           print("$value inserted successfully");
