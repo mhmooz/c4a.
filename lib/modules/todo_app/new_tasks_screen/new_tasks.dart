@@ -1,9 +1,7 @@
 import 'package:c4a/shared/components/components.dart';
-import 'package:c4a/shared/components/constants.dart';
 import 'package:c4a/sql.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:c4a/layout/the_todo_app.dart';
 
 class NewTasksScreen extends StatefulWidget {
   const NewTasksScreen({super.key});

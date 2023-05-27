@@ -1,10 +1,8 @@
 import 'package:c4a/layout/the_todo_app.dart';
-import 'package:c4a/layout/todo_app_layout.dart';
 import 'package:c4a/shared/components/components.dart';
 import 'package:c4a/sql.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart';
 
 // ignore: must_be_immutable
 class TaskInsert extends StatelessWidget {
