@@ -61,3 +61,53 @@ Widget defaultFormField({
       obscureText: isPassword ? true : false,
       onTap: onTap,
     );
+
+Widget buildTaskItem(Map model, Set<List<Map>> set) => Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: GestureDetector(
+        child: Container(
+            child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.black,
+              child: Center(child: Text('${model['time']}')),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 17,
+                ),
+                Text(
+                  "${model['task']}",
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+                ),
+                // SizedBox(
+                //   height: 5,
+                // ),
+                Text(
+                  '${model['date']}',
+                  style: TextStyle(color: Colors.grey),
+                )
+              ],
+            )
+          ],
+        )),
+      ),
+    );
+
+Widget seperatorLine() => Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: Container(
+        width: double.infinity,
+        height: 1,
+        color: Colors.grey,
+      ),
+    );

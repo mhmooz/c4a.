@@ -1,8 +1,10 @@
+import 'package:c4a/layout/the_todo_app.dart';
 import 'package:c4a/modules/bmi_calculator/bmi_cal.dart';
 import 'package:c4a/modules/login/login.dart';
 import 'package:c4a/modules/messenger/messenger.dart';
 import 'package:c4a/modules/simple_counter/simple_counter.dart';
 import 'package:c4a/modules/signup/singup.dart';
+import 'package:c4a/modules/todo_app/task_insert_screen/task_insert_screen.dart';
 import 'package:c4a/modules/users/users.dart';
 import 'package:c4a/modules/welcome/welcome.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,8 @@ class HomePage extends StatelessWidget {
       '/users_data': (context) => Usersdata(),
       '/simplecounter': (context) => const SimpleCounter(),
       '/bmical': (context) => const BmiCalculator(),
-      '/todo_app':(context) => const TODO_App(),
+      '/todo_app': (context) => const TheToDoAPP(),
+      '/task_insert':(context) =>  TaskInsert(),
     });
   }
 }
