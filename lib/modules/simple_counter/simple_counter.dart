@@ -11,7 +11,7 @@ class SimpleCounter extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => CounterCubit(),
       child: BlocConsumer<CounterCubit, CounterStates>(
-        listener: (context, state) {},
+        listener: (BuildContext context,CounterStates state) {},
         builder: (context, state) {
           return Scaffold(
           appBar: AppBar(

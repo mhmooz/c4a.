@@ -1,6 +1,4 @@
-import 'package:bloc/bloc.dart';
-
-abstract class CounterStates {}
+ abstract class CounterStates {}
 
 class CounterInitialState extends CounterStates {}
 
