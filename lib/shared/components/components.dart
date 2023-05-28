@@ -62,7 +62,7 @@ Widget defaultFormField({
       onTap: onTap,
     );
 
-Widget buildTaskItem(Map model, Set<List<Map>> set) => Padding(
+Widget buildTaskItem(Map model) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: GestureDetector(
         child: Container(
@@ -86,7 +86,7 @@ Widget buildTaskItem(Map model, Set<List<Map>> set) => Padding(
                   height: 17,
                 ),
                 Text(
-                  "${model['task']}",
+                  "${model['title']}",
                   style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
                 ),
                 // SizedBox(

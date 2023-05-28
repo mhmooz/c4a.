@@ -11,6 +11,8 @@ import 'package:c4a/modules/welcome/welcome.dart';
 import 'package:c4a/shared/bloc_observer.dart';
 import 'package:flutter/material.dart';
 
+import 'layout/todo_app_layout.dart';
+
 void main() {
   Bloc.observer = MyBlocObserver();
   runApp(const HomePage());
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
       '/users_data': (context) => Usersdata(),
       '/simplecounter': (context) => const SimpleCounter(),
       '/bmical': (context) => const BmiCalculator(),
-      '/todo_app': (context) => const TheToDoAPP(),
+      '/todo_app': (context) => TODO_App(),
       '/task_insert': (context) => TaskInsert(),
     });
   }
