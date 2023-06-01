@@ -12,13 +12,14 @@ class NewTasksScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var tasks = AppCubit.get(context).tasks;
+        var tasks = AppCubit.get(context).newtasks;
         return ListView.separated(
-            itemBuilder: (context, index) => buildTaskItem(tasks[index]),
+            itemBuilder: (context, index) =>
+                buildTaskItem(tasks[index], context),
             separatorBuilder: (context, index) => seperatorLine(),
             itemCount: tasks.length);
       },
     );
-    //ListView.separated(itemBuilder: (context, index) => buildTaskItem(tasks[index]), separatorBuilder: (context, index) => seperatorLine(), itemCount: tasks.length);
+     //ListView.separated(itemBuilder: (context, index) => buildTaskItem(tasks[index]), separatorBuilder: (context, index) => seperatorLine(), itemCount: tasks.length);
   }
 }

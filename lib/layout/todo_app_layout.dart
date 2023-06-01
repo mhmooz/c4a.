@@ -3,13 +3,7 @@ import 'package:c4a/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart';
-
-import '../modules/todo_app/archived_screen/archived_screen.dart';
-import '../modules/todo_app/done_tasks_screen/donr_tasks.dart';
-import '../modules/todo_app/new_tasks_screen/new_tasks.dart';
 import '../shared/components/components.dart';
-import '../shared/components/constants.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class TODO_App extends StatelessWidget {

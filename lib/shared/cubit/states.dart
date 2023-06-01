@@ -13,3 +13,5 @@ class AppGetDataBaseState extends AppStates {}
 class AppInsertDataBaseState extends AppStates {}
 
 class AppChangeBottomSheetState extends AppStates {}
+
+class AppUpdateDataBaseState extends AppStates {}

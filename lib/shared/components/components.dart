@@ -1,3 +1,4 @@
+import 'package:c4a/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 Widget defaultButton({
@@ -62,12 +63,12 @@ Widget defaultFormField({
       onTap: onTap,
     );
 
-Widget buildTaskItem(Map model) => Padding(
+Widget buildTaskItem(Map model, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: GestureDetector(
         child: Container(
             child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 40,
@@ -77,27 +78,38 @@ Widget buildTaskItem(Map model) => Padding(
             SizedBox(
               width: 15,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 17,
-                ),
-                Text(
-                  "${model['title']}",
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
-                ),
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Text(
-                  '${model['date']}',
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            )
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${model['title']}",
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+                  ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  Text(
+                    '${model['date']}',
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+            ),
+            IconButton(
+                onPressed: () {
+                  AppCubit.get(context)
+                      .updateData(status: 'done', id: model['id']);
+                },
+                icon: Icon(Icons.check_box)),
+            IconButton(
+                onPressed: () {
+                  AppCubit.get(context)
+                      .updateData(status: 'archived', id: model['id']);
+                },
+                icon: Icon(Icons.archive_outlined)),
           ],
         )),
       ),
