@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
       '/users_data': (context) => Usersdata(),
       '/simplecounter': (context) => const SimpleCounter(),
       '/bmical': (context) => const BmiCalculator(),
-      '/todo_app': (context) => TODO_App(),
+      '/todo_app': (context) => ToDoApp(),
       '/task_insert': (context) => TaskInsert(),
     });
   }
