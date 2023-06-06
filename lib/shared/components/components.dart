@@ -18,6 +18,7 @@ Widget defaultFormField({
   bool filled = true,
   Function()? onTap,
   Function()? show_password,
+  Function(String)? onchanged,
   Icon? suffix,
   Function()? suffixPressed,
 }) =>
@@ -40,8 +41,9 @@ Widget defaultFormField({
       keyboardType: keyboardType,
       obscureText: isPassword ? true : false,
       onTap: onTap,
+      onChanged: onchanged,
     );
-
+ 
 Widget defaultButton({
   double width = 200,
   double height = 60,

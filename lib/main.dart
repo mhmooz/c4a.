@@ -4,7 +4,6 @@ import 'package:c4a/modules/login/login.dart';
 import 'package:c4a/modules/messenger/messenger.dart';
 import 'package:c4a/modules/simple_counter/simple_counter.dart';
 import 'package:c4a/modules/signup/singup.dart';
-import 'package:c4a/modules/todo_app/task_insert_screen/task_insert_screen.dart';
 import 'package:c4a/modules/users/users.dart';
 import 'package:c4a/modules/welcome/welcome.dart';
 import 'package:c4a/shared/bloc_observer.dart';
@@ -30,7 +29,6 @@ class HomePage extends StatelessWidget {
       '/simplecounter': (context) => const SimpleCounter(),
       '/bmical': (context) => const BmiCalculator(),
       '/todo_app': (context) => ToDoApp(),
-      '/task_insert': (context) => TaskInsert(),
     });
   }
 }
